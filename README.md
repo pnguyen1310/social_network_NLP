@@ -249,14 +249,64 @@ Mục tiêu chính là phát hiện sớm những trạng thái cảm xúc tiêu
    npm run dev
    ```
 
-## 8. Gợi ý cấu hình GitHub
+## 8. Flowchart và Sequence diagram
 
-Nên dùng `.gitignore` để loại trừ:
-- `backend/uploads/`
-- `frontend/node_modules/`
-- `.venv/`, `venv/`
-- file `.env`
-- model/binary lớn như `*.safetensors`, `*.pth`, `*.pt`
+Dưới đây là hai sơ đồ mô tả luồng chính của hệ thống. Bạn có thể dùng chúng để trình bày trong báo cáo hoặc làm tài liệu kỹ thuật.
+
+### 8.1 Flowchart tổng thể
+
+```mermaid
+flowchart TD
+    A[User] -->|Đăng ký/Đăng nhập| B[Frontend React]
+    B -->|Gọi API| C[Backend FastAPI]
+    C -->|Lưu/đọc dữ liệu| D[(Database)]
+    C -->|Xử lý sentiment / toxic| E[AI Models]
+    C -->|Gửi realtime| F[WebSocket]
+    B -->|Nhận realtime| G[UI Notification]
+    E -->|Sentiment/ Toxic/ RAG| D
+    B -->|Chat AI| H[Qwen-LoRA]
+```
+
+### 8.2 Sequence diagram cho luồng tạo bài và phân tích
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant DB
+    participant AI
+    participant WS
+
+    User->>Frontend: Tạo bài viết / upload media
+    Frontend->>Backend: POST /posts/
+    Backend->>DB: Lưu post
+    Backend->>AI: Phân tích toxic cho content
+    AI-->>Backend: Kết quả phân tích
+    Backend->>DB: Lưu toxic_language_cache
+    Backend-->>Frontend: Trả về post đã tạo
+    Backend->>WS: Gửi notification nếu cần
+    WS-->>Frontend: Notification realtime
+```
+
+### 8.3 Sequence diagram cho Chat AI
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant ChatModel
+
+    User->>Frontend: Gửi câu hỏi chat
+    Frontend->>Backend: POST /user/chat
+    Backend->>ChatModel: Nạp model nếu chưa có
+    Backend->>ChatModel: Sinh phản hồi
+    ChatModel-->>Backend: Raw reply
+    Backend->>Backend: Làm sạch output
+    Backend-->>Frontend: Trả lại reply
+    Frontend-->>User: Hiển thị phản hồi chat
+```
 
 ## 9. Các file quan trọng để đọc nhanh
 
@@ -285,14 +335,3 @@ Nên dùng `.gitignore` để loại trừ:
 ### AI model
 - `ViBert/`
 - `qwen_lora_adapter/`
-
-## 10. Lưu ý đặc biệt
-
-- Backend không tự sửa schema khi thay đổi, `Base.metadata.create_all()` chỉ tạo bảng nếu chưa có.
-- `backend/routes/posts.py` có cơ chế auto-scan toxic khi tạo bài, dùng `backend/routes/admin.py` để phân tích.
-- Chat AI hiện tại là model local, có thể tốn bộ nhớ và thời gian nếu không có GPU.
-- Admin RAG/vision cần cấu hình Groq API nếu muốn dùng dịch vụ ngoài.
-
----
-
-Nếu cần, tôi có thể bổ sung thêm phần `Flowchart`, `Sequence diagram` hoặc hướng dẫn chi tiết `deployment` cho hệ thống này.
