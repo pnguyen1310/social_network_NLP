@@ -1,0 +1,145 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.sentiment-grid {
+  margin-top: 8px;
+}
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.sentiment-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+}
+
+.sentiment-pos {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.sentiment-neg {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.sentiment-neu {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.sentiment-chart-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  max-width: 100%;
+}
+
+.chart-card h3 {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.chart-card canvas {
+  max-width: 100%;
+  height: auto;
+  max-height: 280px;
+}
+
+.age-chart-card canvas {
+  max-height: 340px;
+}
+
+.chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.dashboard-post-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+}
+
+.dashboard-post-thumb {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  flex-shrink: 0;
+}
+
+.dashboard-post-video {
+  background: #0f172a;
+}
+
+.dashboard-post-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dashboard-post-title {
+  color: #0f172a;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.dashboard-post-text {
+  color: #64748b;
+  line-height: 1.35;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .sentiment-chart-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

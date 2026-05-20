@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-dotenv
+passlib[bcrypt]
+pydantic
+PyJWT
+python-multipart
+transformers
+torch
+sentencepiece
+safetensors
+protobuf
+tiktoken
+opencv-python-headless
+peft

@@ -1,0 +1,152 @@
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+  border: 1px solid #dbe4f0;
+  border-left: 4px solid;
+  animation: slideIn 0.3s ease-out;
+  pointer-events: all;
+  max-width: 400px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.toast.removing {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+/* Toast Types */
+.toast-success {
+  border-left-color: #10b981;
+  background: #ecfdf5;
+}
+
+.toast-success .toast-icon {
+  color: #10b981;
+}
+
+.toast-error {
+  border-left-color: #ef4444;
+  background: #fef2f2;
+}
+
+.toast-error .toast-icon {
+  color: #ef4444;
+}
+
+.toast-warning {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.toast-warning .toast-icon {
+  color: #f59e0b;
+}
+
+.toast-info {
+  border-left-color: #667eea;
+  background: #eef2ff;
+}
+
+.toast-info .toast-icon {
+  color: #667eea;
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.toast-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.25;
+}
+
+.toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-message {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #475569;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .toast-container {
+    left: 8px;
+    right: 8px;
+    top: 8px;
+  }
+
+  .toast {
+    max-width: none;
+  }
+
+  .toast-message {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,297 @@
+.toxic-page {
+  padding: 24px;
+  min-height: calc(100vh - 120px);
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.06), transparent 22%),
+    linear-gradient(180deg, #f8fbff 0%, #f3f7fc 100%);
+}
+
+.toxic-page__card {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(224, 232, 240, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.toxic-page__hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.toxic-page__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #e8f1ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toxic-page__title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.toxic-page__desc {
+  margin: 12px 0 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 760px;
+}
+
+.toxic-page__stats {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.toxic-page__stats > article {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+
+.toxic-page__stats strong {
+  display: block;
+  color: #0f172a;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.toxic-page__stats span {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.toxic-page__error {
+  margin-top: 14px;
+  color: #b91c1c;
+  font-size: 13px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.toxic-page__table-wrap {
+  margin-top: 16px;
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.toxic-page__empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 220px;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.toxic-page__empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.15);
+}
+
+.toxic-page__empty-state h3 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.toxic-page__empty-state p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.toxic-page__scan-btn {
+  border: 0;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(37, 99, 235, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.toxic-page__scan-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.22);
+}
+
+.toxic-page__scan-btn:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.toxic-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+
+.toxic-table th,
+.toxic-table td {
+  border-bottom: 1px solid #eef2f7;
+  padding: 12px 12px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+  color: #334155;
+}
+
+.toxic-table th {
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.toxic-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.toxic-table__id {
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.toxic-table__author {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toxic-table__author-name {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.toxic-table__author-meta {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.toxic-table__content {
+  min-width: 320px;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+.toxic-table__score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #e8f1ff;
+  color: #1d4ed8;
+  font-weight: 800;
+}
+
+.toxic-table__severity {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.severity-high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.severity-medium {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.severity-low {
+  background: #ecfeff;
+  color: #0f766e;
+}
+
+.toxic-table__terms,
+.toxic-table__reason {
+  max-width: 260px;
+  line-height: 1.55;
+  color: #475569;
+}
+
+.toxic-table__delete-btn {
+  border: 0;
+  border-radius: 10px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.18);
+}
+
+.toxic-table__delete-btn:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.toxic-table__delete-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.toxic-word {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 4px;
+  padding: 0 2px;
+  font-weight: 700;
+}
+

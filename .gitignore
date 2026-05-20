@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env.*
+venv/
+.venv/
+env/
+ENV/
+.python-version
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Backend uploads and local db
+backend/uploads/
+backend/*.db
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+
+# Build artifacts
+build/
+.DS_Store
+
+# Model / large binary
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+
+# OS files
+Thumbs.db
+Desktop.ini

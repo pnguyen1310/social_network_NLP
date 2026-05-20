@@ -1,0 +1,22 @@
+/* Page transition animations */
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.page-transition {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  animation: pageSlideIn 1.5s ease-out;
+}
+
+.page-transition.fade-in {
+  animation: pageSlideIn 1.5s ease-out;
+}
