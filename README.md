@@ -338,7 +338,7 @@ sequenceDiagram
 
 
 
-flowchart LR
+'''flowchart LR
   U["Người dùng"] -->|"Nhập email và mật khẩu"| FE["Frontend"]
 
   FE -->|"POST /api/auth/login với email và password"| BE["Backend"]
@@ -357,3 +357,4 @@ flowchart LR
 
   BE -->|"Nếu sai thông tin thì trả lỗi 401"| FE
   FE -->|"Hiển thị thông báo lỗi"| U
+'''
