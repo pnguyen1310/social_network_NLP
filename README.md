@@ -337,26 +337,61 @@ sequenceDiagram
 - `qwen_lora_adapter/`
 
 ```mermaid
-flowchart LR
-  U["Người dùng"] --> FE["Frontend"]
-  FE -->|"Gửi bài viết"| BE["Backend FastAPI"]
+%%{init: {"theme":"base"}}%%
+usecaseDiagram
+    actor Guest as G
+    actor User as U
+    actor Admin as A
+    actor System as S
 
-  BE -->|"Xác thực JWT"| A["Auth Middleware"]
-  A -->|"Hợp lệ"| BE
+    G --> (View Public Feed)
+    U --> (Register)
+    U --> (Login)
+    U --> (View Feed)
+    U --> (Create Post)
+    U --> (Edit Post)
+    U --> (Delete Post)
+    U --> (Upload Avatar)
+    U --> (Like / Unlike Post)
+    U --> (Comment on Post)
+    U --> (Report Post)
+    U --> (Search Users)
+    U --> (Send Friend Request)
+    U --> (Accept / Decline Friend Request)
+    U --> (List Friends)
+    U --> (View Notifications)
+    U --> (Mark Notifications Read)
+    U --> (Chat with AI)
+    S --> (Process Toxic Scan)
+    S --> (Push Realtime Events)
 
-  BE -->|"Lưu bài viết"| DB[("Database")]
-  BE -->|"Phân tích AI nếu cần"| AI["AI Service"]
+    A --> (Admin Login)
+    A --> (Admin RAG Chat)
+    A --> (Moderate Reports)
+    A --> (View Analytics)
 
-  AI -->|"Kết quả phân tích"| BE
-  BE -->|"Cập nhật dữ liệu"| DB
-  BE -->|"Trả kết quả"| FE
-
-  FE -->|"Hiển thị bài viết mới"| F["Bảng tin"]
-
-  BE -->|"Thông báo realtime"| WS["WebSocket Notification"]
-  WS --> FE
-
-  BE -->|"Lỗi 4xx"| E["Thông báo lỗi"]
-  E --> FE
-  FE --> U
+    rectangle "Backend API" {
+      (Register)
+      (Login)
+      (View Feed)
+      (Create Post)
+      (Edit Post)
+      (Delete Post)
+      (Like / Unlike Post)
+      (Comment on Post)
+      (Report Post)
+      (Search Users)
+      (Send Friend Request)
+      (Accept / Decline Friend Request)
+      (List Friends)
+      (View Notifications)
+      (Mark Notifications Read)
+      (Upload Avatar)
+      (Chat with AI)
+      (Admin RAG Chat)
+      (Moderate Reports)
+      (View Analytics)
+      (Process Toxic Scan)
+      (Push Realtime Events)
+    }
 ```
