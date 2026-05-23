@@ -338,26 +338,25 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  U["Người dùng"] -->|"Soạn và gửi bài"| FE["Frontend"]
+  U["Người dùng"] --> FE["Frontend"]
+  FE -->|"Gửi bài viết"| BE["Backend FastAPI"]
 
-  FE -->|"POST /api/posts với content media token"| BE["Backend"]
-
-  BE -->|"Validate và kiểm tra JWT"| Auth["Auth Middleware"]
-  Auth -->|"Hợp lệ"| BE
+  BE -->|"Xác thực JWT"| A["Auth Middleware"]
+  A -->|"Hợp lệ"| BE
 
   BE -->|"Lưu bài viết"| DB[("Database")]
-  DB -->|"Trả postId và trạng thái"| BE
+  BE -->|"Phân tích AI nếu cần"| AI["AI Service"]
 
-  BE -->|"Gửi yêu cầu phân tích AI nếu cần"| AI["AI Service hoặc Job Queue"]
-  AI -->|"Trả kết quả phân tích"| BE
+  AI -->|"Kết quả phân tích"| BE
+  BE -->|"Cập nhật dữ liệu"| DB
+  BE -->|"Trả kết quả"| FE
 
-  BE -->|"Cập nhật kết quả phân tích"| DB
-  BE -->|"Trả bài viết đã lưu"| FE
+  FE -->|"Hiển thị bài viết mới"| F["Bảng tin"]
 
-  FE -->|"Cập nhật bảng tin"| Feed["Feed người dùng"]
+  BE -->|"Thông báo realtime"| WS["WebSocket Notification"]
+  WS --> FE
 
-  BE -->|"Gửi sự kiện WebSocket hoặc notification"| FE
-
-  BE -->|"Lỗi validate hoặc auth thì trả 4xx"| FE
-  FE -->|"Hiển thị lỗi"| U
+  BE -->|"Lỗi 4xx"| E["Thông báo lỗi"]
+  E --> FE
+  FE --> U
 ```
