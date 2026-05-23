@@ -340,25 +340,25 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-  A[Input: Post caption / text / media meta] --> B[Tiền xử lý\n(Normalize, remove markup,\nNFC/NFD, replace 'đ'->'d', clean URLs)]
+  A[Input: Post caption / text / media meta] --> B[Tiền xử lý<br/>(Normalize, remove markup,<br/>NFC/NFD, replace 'đ' → 'd', clean URLs)]
   B --> C{Quá dài?}
-  C -- Yes --> C1[Chunk text\n(e.g. 256-512 tokens)]
+  C -- Yes --> C1[Chunk text<br/>(e.g. 256-512 tokens)]
   C -- No --> C2[Giữ nguyên text]
-  C1 --> D[Tokenizer (ViBERT tokenizer)\n(add special tokens, pad/truncate)]
+  C1 --> D[Tokenizer (ViBERT tokenizer)<br/>(add special tokens, pad/truncate)]
   C2 --> D
-  D --> E[Batching & Device\n(batch size 16-64, GPU/FP16 nếu có)]
-  E --> F[ViBERT Model\n(Forward -> logits)]
-  F --> G[Post-process logits\n(softmax -> probabilities)]
+  D --> E[Batching & Device<br/>(batch size 16-64, GPU/FP16 nếu có)]
+  E --> F[ViBERT Model<br/>(Forward → logits)]
+  F --> G[Post-process logits<br/>(softmax → probabilities)]
   G --> H{Kết hợp chunk}
   H -- Chunked --> H1[Gộp kết quả (mean / max / weighted)]
   H -- Single --> H2[Dùng xác suất trực tiếp]
-  H1 --> I[Calibration / Threshold\n(gán UNKNOWN nếu low confidence)]
+  H1 --> I[Calibration / Threshold<br/>(gán UNKNOWN nếu low confidence)]
   H2 --> I
-  I --> J[Format kết quả\n(label, score, model_version, processed_at)]
-  J --> K[Persist vào PostSentimentCache (DB)\n(tránh infer lặp)]
-  K --> L[Downstream consumers\n(RAG, OverallAnalysis, FE)]
-  E --> M[Metrics & Logging\n(latency, batch sizes)]
-  K --> N[Async worker / queue\n(enqueue inference cho post mới)]
+  I --> J[Format kết quả<br/>(label, score, model_version, processed_at)]
+  J --> K[Persist vào PostSentimentCache (DB)<br/>(tránh infer lặp)]
+  K --> L[Downstream consumers<br/>(RAG, OverallAnalysis, FE)]
+  E --> M[Metrics & Logging<br/>(latency, batch sizes)]
+  K --> N[Async worker / queue<br/>(enqueue inference cho post mới)]
   style F fill:#f9f,stroke:#333,stroke-width:1px
   style K fill:#efe,stroke:#333,stroke-width:1px
 ```
