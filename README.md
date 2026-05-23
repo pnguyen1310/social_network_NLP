@@ -336,25 +336,28 @@ sequenceDiagram
 - `ViBert/`
 - `qwen_lora_adapter/`
 
-
 ```mermaid
 flowchart LR
-  U[Người dùng] -->|Soạn & gửi bài| FE[Frontend]
-  FE -->|POST /api/posts {content,media,token}| BE[Backend]
-  BE -->|Validate & Auth (JWT)| Auth[(Auth Middleware)]
-  Auth -- OK --> BE
-  BE -->|Lưu bài| DB[(Database)]
-  DB -- Trả postId/status --> BE
-  BE -->|Nếu cần phân tích AI: gửi job →| AI(--- AI Service / Job Queue ---)
-  AI -- Kết quả phân tích --> BE
-  BE -->|Cập nhật post (analysis results)| DB
-  BE -->|Trả post đã lưu| FE
-  FE -->|Cập nhật bảng tin / Hiển thị bài mới| Feed[Feed người dùng]
+  U["Người dùng"] -->|"Soạn và gửi bài"| FE["Frontend"]
 
-  %% Realtime update
-  BE -->|Emit event (WebSocket) hoặc push notification| FE
+  FE -->|"POST /api/posts với content media token"| BE["Backend"]
 
-  %% Lỗi
-  BE -->|Nếu lỗi validate/auth: trả 4xx| FE
-  FE -->|Hiện lỗi cho người dùng| U
+  BE -->|"Validate và kiểm tra JWT"| Auth["Auth Middleware"]
+  Auth -->|"Hợp lệ"| BE
+
+  BE -->|"Lưu bài viết"| DB[("Database")]
+  DB -->|"Trả postId và trạng thái"| BE
+
+  BE -->|"Gửi yêu cầu phân tích AI nếu cần"| AI["AI Service hoặc Job Queue"]
+  AI -->|"Trả kết quả phân tích"| BE
+
+  BE -->|"Cập nhật kết quả phân tích"| DB
+  BE -->|"Trả bài viết đã lưu"| FE
+
+  FE -->|"Cập nhật bảng tin"| Feed["Feed người dùng"]
+
+  BE -->|"Gửi sự kiện WebSocket hoặc notification"| FE
+
+  BE -->|"Lỗi validate hoặc auth thì trả 4xx"| FE
+  FE -->|"Hiển thị lỗi"| U
 ```
