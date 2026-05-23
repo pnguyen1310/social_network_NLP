@@ -337,8 +337,8 @@ sequenceDiagram
 - `qwen_lora_adapter/`
 
 
-
-'''flowchart LR
+```mermaid
+flowchart LR
   U["Người dùng"] -->|"Nhập email và mật khẩu"| FE["Frontend"]
 
   FE -->|"POST /api/auth/login với email và password"| BE["Backend"]
@@ -357,4 +357,4 @@ sequenceDiagram
 
   BE -->|"Nếu sai thông tin thì trả lỗi 401"| FE
   FE -->|"Hiển thị thông báo lỗi"| U
-'''
+```
