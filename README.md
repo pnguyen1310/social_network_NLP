@@ -338,27 +338,21 @@ sequenceDiagram
 
 
 
+
 ```mermaid
-flowchart TD
-  A[Input: Post caption/text/media meta] --> B[Tiền xử lý: Normalize, remove markup, NFC/NFD, replace đ with d, clean URLs]
-  B --> C{Quá dài?}
-  C -- Yes --> C1[Chunk text (256-512 tokens)]
-  C -- No --> C2[Use full text]
-  C1 --> D[Tokenizer (ViBERT tokenizer, pad/truncate)]
-  C2 --> D
-  D --> E[Batching & Device (batch 16-64, GPU/FP16 if available)]
-  E --> F[ViBERT model (forward to logits)]
-  F --> G[Post-process logits (softmax to probabilities)]
-  G --> H{Aggregate chunks?}
-  H -- Yes --> H1[Aggregate (mean/max/weighted)]
-  H -- No --> H2[Use single result]
-  H1 --> I[Calibration/Threshold (UNKNOWN if low confidence)]
-  H2 --> I
-  I --> J[Format result (label, score, model_version, processed_at)]
-  J --> K[Persist to PostSentimentCache (DB)]
-  K --> L[Downstream: RAG / OverallAnalysis / FE]
-  E --> M[Metrics & Logging]
-  K --> N[Async worker / queue (enqueue new posts)]
-  style F fill:#f9f,stroke:#333,stroke-width:1px
-  style K fill:#efe,stroke:#333,stroke-width:1px
+flowchart LR
+  U[Người dùng] -->|Nhập email & mật khẩu| FE[Frontend]
+  FE -->|POST /api/auth/login {email,password}| BE[Backend]
+  BE -->|Kiểm tra tài khoản (DB, bcrypt)| DB[(Database)]
+  DB -- Trả kết quả --> BE
+  BE -->|Nếu hợp lệ: tạo JWT| JWT[(JWT token)]
+  BE -->|Trả token (JSON) hoặc Set-Cookie httpOnly| FE
+  FE -->|Lưu token (httpOnly cookie hoặc localStorage)| Storage[(Lưu trữ trên client)]
+  FE -->|Gọi API được bảo vệ với Authorization: Bearer <token>| Protected[Chức năng hệ thống]
+  Protected -->|Middleware kiểm tra JWT| BE
+  BE -->|Trả dữ liệu| FE
+
+  %% Xử lý lỗi
+  BE -->|Nếu sai thông tin: trả lỗi 401| FE
+  FE -->|Hiện thông báo lỗi cho người dùng| U
 ```
