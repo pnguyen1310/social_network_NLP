@@ -339,22 +339,22 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  U["Người dùng"] -->|"Nhập email và mật khẩu"| FE["Frontend"]
+  U[Người dùng] -->|Soạn & gửi bài| FE[Frontend]
+  FE -->|POST /api/posts {content,media,token}| BE[Backend]
+  BE -->|Validate & Auth (JWT)| Auth[(Auth Middleware)]
+  Auth -- OK --> BE
+  BE -->|Lưu bài| DB[(Database)]
+  DB -- Trả postId/status --> BE
+  BE -->|Nếu cần phân tích AI: gửi job →| AI(--- AI Service / Job Queue ---)
+  AI -- Kết quả phân tích --> BE
+  BE -->|Cập nhật post (analysis results)| DB
+  BE -->|Trả post đã lưu| FE
+  FE -->|Cập nhật bảng tin / Hiển thị bài mới| Feed[Feed người dùng]
 
-  FE -->|"POST /api/auth/login với email và password"| BE["Backend"]
+  %% Realtime update
+  BE -->|Emit event (WebSocket) hoặc push notification| FE
 
-  BE -->|"Kiểm tra tài khoản trong DB và bcrypt"| DB[("Database")]
-  DB -->|"Trả kết quả kiểm tra"| BE
-
-  BE -->|"Nếu hợp lệ thì tạo JWT"| JWT[("JWT token")]
-  BE -->|"Trả token dạng JSON hoặc cookie httpOnly"| FE
-
-  FE -->|"Lưu token trên client"| Storage[("Client Storage")]
-
-  FE -->|"Gọi API bảo vệ với Bearer token"| Protected["Chức năng hệ thống"]
-  Protected -->|"Middleware kiểm tra JWT"| BE
-  BE -->|"Trả dữ liệu"| FE
-
-  BE -->|"Nếu sai thông tin thì trả lỗi 401"| FE
-  FE -->|"Hiển thị thông báo lỗi"| U
+  %% Lỗi
+  BE -->|Nếu lỗi validate/auth: trả 4xx| FE
+  FE -->|Hiện lỗi cho người dùng| U
 ```
