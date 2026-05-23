@@ -338,21 +338,22 @@ sequenceDiagram
 
 
 
-
-```mermaid
 flowchart LR
-  U[Người dùng] -->|Nhập email & mật khẩu| FE[Frontend]
-  FE -->|POST /api/auth/login {email,password}| BE[Backend]
-  BE -->|Kiểm tra tài khoản (DB, bcrypt)| DB[(Database)]
-  DB -- Trả kết quả --> BE
-  BE -->|Nếu hợp lệ: tạo JWT| JWT[(JWT token)]
-  BE -->|Trả token (JSON) hoặc Set-Cookie httpOnly| FE
-  FE -->|Lưu token (httpOnly cookie hoặc localStorage)| Storage[(Lưu trữ trên client)]
-  FE -->|Gọi API được bảo vệ với Authorization: Bearer <token>| Protected[Chức năng hệ thống]
-  Protected -->|Middleware kiểm tra JWT| BE
-  BE -->|Trả dữ liệu| FE
+  U["Người dùng"] -->|"Nhập email và mật khẩu"| FE["Frontend"]
 
-  %% Xử lý lỗi
-  BE -->|Nếu sai thông tin: trả lỗi 401| FE
-  FE -->|Hiện thông báo lỗi cho người dùng| U
-```
+  FE -->|"POST /api/auth/login với email và password"| BE["Backend"]
+
+  BE -->|"Kiểm tra tài khoản trong DB và bcrypt"| DB[("Database")]
+  DB -->|"Trả kết quả kiểm tra"| BE
+
+  BE -->|"Nếu hợp lệ thì tạo JWT"| JWT[("JWT token")]
+  BE -->|"Trả token dạng JSON hoặc cookie httpOnly"| FE
+
+  FE -->|"Lưu token trên client"| Storage[("Client Storage")]
+
+  FE -->|"Gọi API bảo vệ với Bearer token"| Protected["Chức năng hệ thống"]
+  Protected -->|"Middleware kiểm tra JWT"| BE
+  BE -->|"Trả dữ liệu"| FE
+
+  BE -->|"Nếu sai thông tin thì trả lỗi 401"| FE
+  FE -->|"Hiển thị thông báo lỗi"| U
